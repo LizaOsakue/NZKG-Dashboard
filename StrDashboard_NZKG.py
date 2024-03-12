@@ -1,3 +1,7 @@
+import appdirs as ad
+ad.user_cache_dir = lambda *args: "/tmp"
+
+
 from collections import UserString
 import streamlit as st
 import yfinance as yf 
@@ -8,12 +12,6 @@ import matplotlib.pyplot as plt
 # Import document
 df = pd.read_excel('/Users/lizaosakue/Desktop/Streamlit/BAL_DEF_updated.xlsx')
 theme_counts = pd.read_excel('/Users/lizaosakue/Desktop/Streamlit/gemiddelden .xlsx')
-
-# Attempt to import yfinance, but don't raise an error if it fails
-try:
-    import yfinance as yf
-except ImportError:
-    yf = None  # Set yf to None so you can handle it later if needed
 
 st.write("""
         # Milieubelastende activiteiten 
@@ -100,10 +98,3 @@ st.write("""
          #### *Analyse van ieder thema: het gemiddeld aantal mba's per paragraaf en het verschil in aantal van dit gemiddelde per geselecteerde paragraaf*
          """)
 st.table(theme_display)
-
-# Additional handling if yfinance is not available
-if yf is None:
-    st.warning("Warning: yfinance is not available. Some features may be disabled.")
-
-
-
