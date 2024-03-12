@@ -9,6 +9,12 @@ import matplotlib.pyplot as plt
 df = pd.read_excel('/Users/lizaosakue/Desktop/Streamlit/BAL_DEF_updated.xlsx')
 theme_counts = pd.read_excel('/Users/lizaosakue/Desktop/Streamlit/gemiddelden .xlsx')
 
+# Attempt to import yfinance, but don't raise an error if it fails
+try:
+    import yfinance as yf
+except ImportError:
+    yf = None  # Set yf to None so you can handle it later if needed
+
 st.write("""
         # Milieubelastende activiteiten 
         ## *Aantal BAL thema's per MBA*
@@ -95,6 +101,9 @@ st.write("""
          """)
 st.table(theme_display)
 
+# Additional handling if yfinance is not available
+if yf is None:
+    st.warning("Warning: yfinance is not available. Some features may be disabled.")
 
 
 
