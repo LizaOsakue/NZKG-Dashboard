@@ -9,8 +9,8 @@ import numpy as np
 #import yfinance as yf 
 
 # Import document
-df = pd.read_excel('/Users/lizaosakue/Desktop/Streamlit/BAL_DEF_updated.xlsx')
-theme_counts = pd.read_excel('/Users/lizaosakue/Desktop/Streamlit/gemiddelden .xlsx')
+df = pd.read_excel('BAL_DEF_updated.xlsx')
+theme_counts = pd.read_excel('gemiddelden .xlsx')
 
 st.write("""
         # Milieubelastende activiteiten 
