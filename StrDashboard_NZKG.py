@@ -1,8 +1,12 @@
 import streamlit as st
-import yfinance as yf 
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+import numpy as np
+
+#import plotly.express as px
+#import plotly.graph_objects as go
+#import yfinance as yf 
 
 # Import document
 df = pd.read_excel('/Users/lizaosakue/Desktop/Streamlit/BAL_DEF_updated.xlsx')
@@ -93,3 +97,29 @@ st.write("""
          #### *Analyse van ieder thema: het gemiddeld aantal mba's per paragraaf en het verschil in aantal van dit gemiddelde per geselecteerde paragraaf*
          """)
 st.table(theme_display)
+
+# Pivot the data with 'Paragraaf' as the index and 'Thema' as columns
+# Counting the number of occurrences of each 'Thema' per 'Paragraaf'
+pivot_df = pd.pivot_table(df, values='lidnr', index='Paragraaf', columns='Thema', aggfunc='count', fill_value=0)
+
+# List of new column names provided by the user
+new_column_names = [
+    "lucht", "water", "bodem", "externe veiligheid", "module",
+    "afval", "energie", "geluid", "lucht en geluid", "lucht en geur",
+    "gezondheid", "veiligheid", "geur", "lichtschittering", "water en gezondheid"
+]
+
+# Map the original 'Thema' values to the new names if they don't match
+# This is a placeholder for the correct mapping based on the user's data
+# The actual mapping should be defined according to the specific values in the 'Thema' column of the data
+thema_mapping = {thema: new_name for thema, new_name in zip(pivot_df.columns, new_column_names)}
+
+# Rename the columns using the mapping
+pivot_df_renamed = pivot_df.rename(columns=thema_mapping)
+
+# Use the created pivot table for display in Streamlit
+st.write("""
+         #### *Interactieve Tabel: Aantal thema's per paragraaf*
+         """)
+st.dataframe(pivot_df_renamed)
+
